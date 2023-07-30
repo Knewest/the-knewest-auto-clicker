@@ -1,4 +1,4 @@
-﻿#NoEnv
+#NoEnv
 #Persistent
 SendMode Input
 
@@ -55,7 +55,7 @@ if (theme == "Light") {
     Gui, Font, s12 cFFFFFF
 }
 
-Gui, Add, Text, x10 y10 w440 vTitle, The Knewest Auto-Clicker [v1.0]
+Gui, Add, Text, x10 y10 w440 vTitle, The Knewest Auto-Clicker [v1.1]
 Gui, Font, s10
 
 Gui, Add, GroupBox, x10 y40 w440 h280 , % autoClickerSettings[language]
@@ -114,8 +114,8 @@ Gui, Add, Button, x230 y480 w210 gOpenDiscord, % discordButtonLabel[language]
 
 Gui, Add, Text, x10 y520 w440 center, © (Boost Software License 1.0) Knew 2023-2023
 
-Gui, Show, w460 h560, The Knewest Auto-Clicker [v1.0]
-WinMove, The Knewest Auto-Clicker [v1.0],, %X%, %Y%
+Gui, Show, w460 h560, The Knewest Auto-Clicker [v1.1]
+WinMove, The Knewest Auto-Clicker [v1.1],, %X%, %Y%
 
 return
 
@@ -181,14 +181,7 @@ LanguageChange:
 return
 
 DelayTypeChange:
-    GuiControlGet, delayTypeIndex, , DelayType
-    delayTypes := StrSplit(delayTypeMapping[language], "|")
-    
-    for eng, native in delayTypeMapping {
-        if (delayTypes[delayTypeIndex + 1] = native) {
-            delayType := eng
-        }
-    }
+    GuiControlGet, delayType, , DelayType
 return
 
 IniRead, delay, %A_ScriptDir%\settings.ini, Settings, Delay, %defaultDelay%
@@ -203,15 +196,8 @@ delayType := delayTypeMappingEnglish[delayTypeEnglish]
 
 SaveSettings:
     Gui, Submit, NoHide
-    
-    for eng, native in delayTypeMappingEnglish {
-        if (delayType = native) {
-            delayTypeEnglish := eng
-        }
-    }
-
     IniWrite, %delay%, %A_ScriptDir%\settings.ini, Settings, Delay
-    IniWrite, %delayTypeEnglish%, %A_ScriptDir%\settings.ini, Settings, DelayType
+    IniWrite, %delayType%, %A_ScriptDir%\settings.ini, Settings, DelayType
     IniWrite, %hotkey%, %A_ScriptDir%\settings.ini, Settings, Hotkey
     IniWrite, %mode%, %A_ScriptDir%\settings.ini, Settings, Mode
     IniWrite, %theme%, %A_ScriptDir%\settings.ini, Settings, Theme
@@ -242,7 +228,7 @@ GetDelayByType(Delay, Type){
 }
 
 
-; Version 1.0 of The Knewest Auto-Clicker
+; Version 1.1 of The Knewest Auto-Clicker
 ; Copyright (Boost Software License 1.0) 2023-2023 Knew
 ; Link to source: https://github.com/Knewest/the-knewest-auto-clicker
 ; Support server (Discord): https://discord.gg/NqqqzajfK4
